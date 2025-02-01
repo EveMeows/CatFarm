@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbt3sfvxuuhnj"]
+
+[ext_resource type="PackedScene" uid="uid://cpujjmh1b67sm" path="res://Scenes/Entities/Player.tscn" id="1_simh3"]
+[ext_resource type="Script" path="res://Scripts/view.gd" id="2_ib8dp"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_simh3")]
+camera = NodePath("../View")
+
+[node name="View" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+limit_left = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("2_ib8dp")

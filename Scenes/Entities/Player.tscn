@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpujjmh1b67sm"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/player.gd" id="1_8pqnd"]
+[ext_resource type="Texture2D" uid="uid://dw2fji3iqnx38" path="res://Content/icon.svg" id="1_qmr1m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_523xb"]
+radius = 13.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+position = Vector2(96, 277)
+script = ExtResource("1_8pqnd")
+sprite = NodePath("Sprite")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_qmr1m")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_523xb")
+
+[connection signal="mouse_entered" from="." to="." method="mouse_entered"]

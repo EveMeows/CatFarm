@@ -1,0 +1,35 @@
+extends CharacterBody2D
+
+@export var sprite: Sprite2D
+@export var camera: Camera2D
+
+@export var speed: float = 45.0
+@export var acceleration: float = 4.5
+ 
+@export var stop_offset: int = 10
+
+var direction: int = 1
+
+
+func handle_mouse() -> void:
+	var mouse: Vector2 = camera.get_global_mouse_position()
+	if mouse.x < position.x + stop_offset && mouse.x > position.x - stop_offset:
+		direction = 0
+		return
+		
+	direction = -1 if position.x > mouse.x else 1
+
+
+func _physics_process(delta: float) -> void:
+	# Apply gravity.
+	# if not is_on_floor():
+	# 	velocity += get_gravity() * delta
+
+	handle_mouse()
+	velocity.x = move_toward(velocity.x, speed * direction, acceleration)
+
+	move_and_slide()
+
+
+func mouse_entered() -> void:
+	direction = 0

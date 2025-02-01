@@ -1,0 +1,10 @@
+# Godot specific ignores
+.godot/
+android/
+
+**/*.import
+
+# Editors
+.idea/
+.vscode/
+.vs/
