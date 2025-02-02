@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dw2fji3iqnx38" path="res://Content/icon.svg" id="1_qmr1m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_523xb"]
-radius = 13.0
+radius = 13.0384
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
-position = Vector2(96, 277)
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("left", "right")]
+position = Vector2(102, 293)
+collision_mask = 16
 script = ExtResource("1_8pqnd")
-sprite = NodePath("Sprite")
+left = NodePath("LeftCast")
+right = NodePath("RightCast")
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -18,5 +20,14 @@ texture = ExtResource("1_qmr1m")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_523xb")
+
+[node name="RightCast" type="RayCast2D" parent="."]
+target_position = Vector2(20, 27)
+collision_mask = 16
+collide_with_areas = true
+
+[node name="LeftCast" type="RayCast2D" parent="."]
+target_position = Vector2(-18, 28)
+collision_mask = 16
 
 [connection signal="mouse_entered" from="." to="." method="mouse_entered"]
