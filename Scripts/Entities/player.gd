@@ -26,12 +26,7 @@ func handle_mouse(mouse: Vector2) -> void:
 func handle_raycast(mouse: Vector2) -> void:
 	if not is_on_floor(): return
 	
-	# Right
-	if not right.is_colliding() and mouse.x > position.x:
-		direction = 0
-	
-	# Left
-	if not left.is_colliding() and mouse.x < position.x:
+	if (not right.is_colliding() and mouse.x > position.x) or (not left.is_colliding() and mouse.x < position.x):
 		direction = 0
 
 
@@ -40,9 +35,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	# Very high performance code
 	var mouse: Vector2 = camera.get_global_mouse_position()
-	handle_mouse(mouse)
-	handle_raycast(mouse)
+	handle_mouse(mouse); handle_raycast(mouse)
 
 	velocity.x = move_toward(velocity.x, speed * direction, acceleration)
 	move_and_slide()
