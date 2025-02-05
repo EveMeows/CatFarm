@@ -35,9 +35,10 @@ texture = ExtResource("1_l1n1b")
 physics_layer_0/collision_layer = 16
 sources/0 = SubResource("TileSetAtlasSource_3fy5m")
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("shop")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("shop", "coin")]
 script = ExtResource("1_blujg")
 shop = NodePath("UIView/Shop")
+coin = NodePath("UIView/Overlay/CoinContainer/MarginControl/Coins")
 
 [node name="UIView" type="CanvasLayer" parent="."]
 
@@ -64,9 +65,9 @@ grow_horizontal = 2
 
 [node name="Title" type="Label" parent="UIView/Shop/Header"]
 layout_mode = 0
-offset_left = 2.0
+offset_left = 5.0
 offset_top = 5.0
-offset_right = 74.0
+offset_right = 77.0
 offset_bottom = 28.0
 text = "The Shop"
 
@@ -102,21 +103,44 @@ metadata/_tab_index = 0
 
 [node name="Scroll" type="ScrollContainer" parent="UIView/Shop/Tabs/Seeds"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0153173
-anchor_top = 0.0253164
-anchor_right = 0.978118
-anchor_bottom = 0.966244
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="MainLayout" type="VBoxContainer" parent="UIView/Shop/Tabs/Seeds/Scroll"]
+[node name="MarginControl" type="MarginContainer" parent="UIView/Shop/Tabs/Seeds/Scroll"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+
+[node name="MainLayout" type="VBoxContainer" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sections" type="VBoxContainer" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout"]
 layout_mode = 2
 
-[node name="Basic" type="Label" parent="UIView/Shop/Tabs/Seeds/Scroll/MainLayout"]
+[node name="MarginContainer" type="MarginContainer" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout/Sections"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="Basic" type="Label" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout/Sections/MarginContainer"]
 layout_mode = 2
 text = "Basic Seeds"
+
+[node name="BasicSeeds" type="HBoxContainer" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout/Sections"]
+layout_mode = 2
+
+[node name="Wheat" type="Button" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout/Sections/BasicSeeds"]
+layout_mode = 2
+text = "Wheat 10g"
+
+[node name="Button" type="Button" parent="UIView/Shop/Tabs/Seeds/Scroll/MarginControl/MainLayout/Sections/BasicSeeds"]
+layout_mode = 2
+text = "Carrot 25g"
 
 [node name="Fishing" type="TabBar" parent="UIView/Shop/Tabs"]
 visible = false
@@ -142,6 +166,41 @@ layout_mode = 2
 text = "Lures
 "
 
+[node name="Overlay" type="Control" parent="UIView"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CoinContainer" type="PanelContainer" parent="UIView/Overlay"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 36.0
+offset_bottom = 28.0
+
+[node name="MarginControl" type="MarginContainer" parent="UIView/Overlay/CoinContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Coins" type="Label" parent="UIView/Overlay/CoinContainer/MarginControl"]
+layout_mode = 2
+text = "0g"
+horizontal_alignment = 1
+
+[node name="Inventory" type="Button" parent="UIView/Overlay"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 34.0
+offset_right = 39.0
+offset_bottom = 65.0
+text = "Bag"
+
 [node name="World" type="Node" parent="."]
 
 [node name="Ground" type="TileMapLayer" parent="World"]
@@ -165,10 +224,10 @@ shop = NodePath("../UIView/Shop")
 anchors_preset = 7
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 41.0
-offset_top = 193.0
-offset_right = 169.0
-offset_bottom = 321.0
+offset_left = 17.0
+offset_top = 191.0
+offset_right = 145.0
+offset_bottom = 319.0
 grow_horizontal = 2
 
 [connection signal="pressed" from="UIView/Shop/Header/Exit" to="UIView/Shop" method="on_exit_pressed"]
