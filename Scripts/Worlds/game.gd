@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var shop: Control
+@export var inventory: Control
+
 @export var coin: Label
 
 
@@ -17,5 +19,11 @@ func _process(_delta: float) -> void:
 
 
 func on_shop_pressed() -> void:
-	if shop == null: return
+	if inventory.visible:
+		inventory.visible = false
+
 	shop.visible = true
+
+
+func on_inventory_pressed() -> void:
+	inventory.visible = !inventory.visible

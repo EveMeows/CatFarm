@@ -35,12 +35,56 @@ texture = ExtResource("1_l1n1b")
 physics_layer_0/collision_layer = 16
 sources/0 = SubResource("TileSetAtlasSource_3fy5m")
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("shop", "coin")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("shop", "inventory", "coin")]
 script = ExtResource("1_blujg")
 shop = NodePath("UIView/Shop")
+inventory = NodePath("UIView/Inventory")
 coin = NodePath("UIView/Overlay/CoinContainer/MarginControl/Coins")
 
 [node name="UIView" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="Control" parent="UIView"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CoinContainer" type="PanelContainer" parent="UIView/Overlay"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 36.0
+offset_bottom = 28.0
+
+[node name="MarginControl" type="MarginContainer" parent="UIView/Overlay/CoinContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Coins" type="Label" parent="UIView/Overlay/CoinContainer/MarginControl"]
+layout_mode = 2
+text = "0g"
+horizontal_alignment = 1
+
+[node name="Inventory" type="Button" parent="UIView/Overlay"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 34.0
+offset_right = 39.0
+offset_bottom = 65.0
+text = "Bag"
+
+[node name="Equipped" type="Label" parent="UIView/Overlay"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 38.0
+offset_right = 186.0
+offset_bottom = 61.0
+text = "Nothing Equipped"
 
 [node name="Shop" type="Control" parent="UIView"]
 visible = false
@@ -166,7 +210,8 @@ layout_mode = 2
 text = "Lures
 "
 
-[node name="Overlay" type="Control" parent="UIView"]
+[node name="Inventory" type="Control" parent="UIView"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,30 +221,45 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="CoinContainer" type="PanelContainer" parent="UIView/Overlay"]
+[node name="Header" type="Panel" parent="UIView/Inventory"]
+layout_mode = 2
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -244.0
+offset_top = 17.0
+offset_right = 244.0
+offset_bottom = 53.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="UIView/Inventory/Header"]
 layout_mode = 0
-offset_left = 7.0
+offset_left = 5.0
 offset_top = 5.0
-offset_right = 36.0
+offset_right = 77.0
 offset_bottom = 28.0
+text = "Inventory"
 
-[node name="MarginControl" type="MarginContainer" parent="UIView/Overlay/CoinContainer"]
+[node name="TabContainer" type="TabContainer" parent="UIView/Inventory"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -244.0
+offset_top = 22.0
+offset_right = 244.0
+offset_bottom = 342.0
+grow_horizontal = 2
+tab_alignment = 2
+current_tab = 0
+
+[node name="Seeds" type="TabBar" parent="UIView/Inventory/TabContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+metadata/_tab_index = 0
 
-[node name="Coins" type="Label" parent="UIView/Overlay/CoinContainer/MarginControl"]
+[node name="Fishing" type="TabBar" parent="UIView/Inventory/TabContainer"]
+visible = false
 layout_mode = 2
-text = "0g"
-horizontal_alignment = 1
-
-[node name="Inventory" type="Button" parent="UIView/Overlay"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 34.0
-offset_right = 39.0
-offset_bottom = 65.0
-text = "Bag"
+metadata/_tab_index = 1
 
 [node name="World" type="Node" parent="."]
 
@@ -230,5 +290,6 @@ offset_right = 145.0
 offset_bottom = 319.0
 grow_horizontal = 2
 
+[connection signal="pressed" from="UIView/Overlay/Inventory" to="." method="on_inventory_pressed"]
 [connection signal="pressed" from="UIView/Shop/Header/Exit" to="UIView/Shop" method="on_exit_pressed"]
 [connection signal="pressed" from="Shop" to="." method="on_shop_pressed"]
