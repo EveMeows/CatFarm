@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqgheqk3a23pm"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Plot/States/idle.gd" id="1_i17lv"]
+
+[node name="Idle" type="Node"]
+script = ExtResource("1_i17lv")
+state_name = "Empty"

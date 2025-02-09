@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://3r2eifho18lu"]
+
+[ext_resource type="Texture2D" uid="uid://qtu2v6gggpx1" path="res://Content/Entities/Plot.png" id="1_guu0b"]
+[ext_resource type="Script" path="res://Scripts/Entities/Plot/plot.gd" id="2_3k8h5"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="3_kkwmr"]
+[ext_resource type="PackedScene" uid="uid://bqgheqk3a23pm" path="res://Scenes/Entities/Plot/States/Idle.tscn" id="4_up366"]
+[ext_resource type="PackedScene" uid="uid://cyc8nntytf8bo" path="res://Scenes/Entities/Plot/States/Planting.tscn" id="5_p8pra"]
+
+[node name="Plot" type="TextureButton" node_paths=PackedStringArray("overlay", "active_name", "machine")]
+offset_left = 186.0
+offset_top = 180.0
+offset_right = 202.0
+offset_bottom = 196.0
+mouse_filter = 1
+texture_normal = ExtResource("1_guu0b")
+script = ExtResource("2_3k8h5")
+overlay = NodePath("UIView")
+active_name = NodePath("UIView/StateContainer/State")
+machine = NodePath("StateMachine")
+
+[node name="UIView" type="Control" parent="."]
+visible = false
+z_index = 999
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Leave" type="Button" parent="UIView"]
+layout_mode = 2
+anchor_left = 0.477
+anchor_right = 0.477
+anchor_bottom = 0.33
+offset_left = -7.26398
+offset_top = -24.0
+offset_right = 21.736
+offset_bottom = -3.55998
+scale = Vector2(0.5, 0.5)
+text = "X"
+
+[node name="Plant" type="Button" parent="UIView"]
+layout_mode = 2
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -25.0
+offset_right = 17.0
+offset_bottom = 6.0
+scale = Vector2(0.6, 0.6)
+text = "Plant"
+
+[node name="Idk" type="Button" parent="UIView"]
+layout_mode = 2
+anchor_left = 0.909
+anchor_top = 0.5
+anchor_right = 0.909
+anchor_bottom = 0.5
+offset_left = 4.912
+offset_top = -25.0
+offset_right = 57.912
+offset_bottom = 6.0
+scale = Vector2(0.6, 0.6)
+text = "Test"
+
+[node name="StateContainer" type="PanelContainer" parent="UIView"]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 26.0
+offset_right = 25.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="State" type="Label" parent="UIView/StateContainer"]
+layout_mode = 2
+text = "Empty"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("states", "active")]
+script = ExtResource("3_kkwmr")
+states = [NodePath("Idle"), NodePath("Planting")]
+active = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("4_up366")]
+
+[node name="Planting" parent="StateMachine" instance=ExtResource("5_p8pra")]
+
+[connection signal="pressed" from="." to="." method="on_self_pressed"]
+[connection signal="pressed" from="UIView/Leave" to="." method="on_leave_pressed"]
+[connection signal="pressed" from="UIView/Plant" to="." method="on_plant_pressed"]
+[connection signal="state_changed" from="StateMachine" to="." method="on_state_machine_state_changed"]

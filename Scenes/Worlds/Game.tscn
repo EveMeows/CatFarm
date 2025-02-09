@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://dbt3sfvxuuhnj"]
+[gd_scene load_steps=10 format=4 uid="uid://dbt3sfvxuuhnj"]
 
 [ext_resource type="Script" path="res://Scripts/Worlds/game.gd" id="1_blujg"]
 [ext_resource type="Texture2D" uid="uid://bgjxjhgt6kpcp" path="res://Content/Tilesets/Ground16x16.png" id="1_l1n1b"]
 [ext_resource type="PackedScene" uid="uid://cpujjmh1b67sm" path="res://Scenes/Entities/Player.tscn" id="1_simh3"]
 [ext_resource type="Script" path="res://Scripts/Worlds/shop.gd" id="2_cjlmk"]
 [ext_resource type="Script" path="res://Scripts/view.gd" id="2_ib8dp"]
+[ext_resource type="PackedScene" uid="uid://3r2eifho18lu" path="res://Scenes/Entities/Plot/Plot.tscn" id="3_is53r"]
 [ext_resource type="PackedScene" uid="uid://ve7pog4bh4k3" path="res://Scenes/Entities/Shop.tscn" id="5_855de"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3fy5m"]
@@ -260,6 +261,26 @@ metadata/_tab_index = 0
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="Plots" type="Node" parent="."]
+
+[node name="Plot" parent="Plots" instance=ExtResource("3_is53r")]
+offset_left = 684.0
+offset_top = 288.0
+offset_right = 716.0
+offset_bottom = 320.0
+
+[node name="Plot2" parent="Plots" instance=ExtResource("3_is53r")]
+offset_left = 752.0
+offset_top = 288.0
+offset_right = 784.0
+offset_bottom = 320.0
+
+[node name="Plot3" parent="Plots" instance=ExtResource("3_is53r")]
+offset_left = 820.0
+offset_top = 288.0
+offset_right = 852.0
+offset_bottom = 320.0
 
 [node name="World" type="Node" parent="."]
 
